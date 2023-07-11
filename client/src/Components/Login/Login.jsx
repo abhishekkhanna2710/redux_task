@@ -1,13 +1,24 @@
 import React from 'react'
 import { useState } from 'react'
+import { useDispatch } from 'react-redux';
+import { login } from "../../reduxes/userData.js"
 
 function Login() {
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
+    const dispatch = useDispatch();
+    const handleSubmit = (e) => {
+        e.preventDefault();
 
-
+        dispatch(login({
+            name: username,
+            email: email,
+            password: password,
+            loggedIn: true
+        }))
+    }
     return (
         <div className='Login'>
 
@@ -15,7 +26,7 @@ function Login() {
                 <h1>Login Form</h1>
 
                 <input
-                    type="username"
+                    type="name"
                     placeholder='Username'
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
@@ -35,7 +46,7 @@ function Login() {
                     onChange={(e) => setPassword(e.target.value)}
                 />
                 <br />
-                <button type='submit' className='submit_form'>Submit</button>
+                <button type='submit' className='submit_form' onSubmit={(e) => handleSubmit(e)}>Submit</button>
 
             </form>
 
